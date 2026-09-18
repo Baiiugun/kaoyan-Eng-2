@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>考研英语二 真题标生词 · 目录</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--border:#e3e5e8;--text:#1c1c1e;--muted:#6b7280;--blue:#2563eb;--blue-bg:#eff6ff;}
+*{box-sizing:border-box}
+body{margin:0;font:15px/1.65 -apple-system,"Segoe UI","Microsoft YaHei",sans-serif;color:var(--text);background:var(--bg)}
+.wrap{max-width:720px;margin:0 auto;padding:28px 16px 60px}
+h1{font-size:22px;margin:0 0 4px}
+.lead{color:var(--muted);margin:0 0 20px;font-size:14px}
+.tips{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 18px;margin-bottom:20px;font-size:13.5px}
+.tips b{color:var(--blue)}
+.panel{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin-bottom:16px}
+.panel label{display:block;font-size:13px;font-weight:600;margin:0 0 5px;color:var(--muted)}
+.panel input,.panel select{width:100%;padding:9px 11px;border:1px solid var(--border);border-radius:8px;font:inherit;background:#fff}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.row>div{flex:1;min-width:140px}
+button,a.btn{font:inherit;cursor:pointer;border:1px solid var(--border);background:#fff;border-radius:8px;padding:9px 14px;color:var(--text);text-decoration:none;display:inline-block}
+button.primary{background:var(--blue);border-color:var(--blue);color:#fff;width:100%;margin-top:12px;font-weight:600}
+button.primary:hover{background:#1d4ed8}
+.result{margin-top:12px;font-size:13.5px;background:var(--blue-bg);border-radius:9px;padding:10px 13px;word-break:break-all;display:none}
+.result.show{display:block}
+.result a{color:var(--blue)}
+#toast{position:fixed;left:50%;top:16px;transform:translateX(-50%);background:#111827;color:#fff;padding:8px 14px;border-radius:8px;font-size:13.5px;display:none;z-index:10}
+footer{color:var(--muted);font-size:12px;text-align:center;margin-top:24px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>📚 考研英语二 · 真题标生词</h1>
+  <p class="lead">选一年真题，填学生缩写，复制链接发给学生。</p>
+  <div class="tips"><b>用法：</b>选年份 → 填学生缩写（比如 HZY）→「复制链接」→ 发给学生。学生打开后点单词/长按拖词组标生词，提交后你可以在「标记单词结果·老师登录版本」里看到。</div>
+
+  <div class="panel">
+    <label for="year">年份</label>
+    <select id="year">
+      <option value="2022.html">考研英语二 2022年</option>
+    </select>
+    <div class="row">
+      <div>
+        <label for="stu">学生缩写</label>
+        <input id="stu" placeholder="比如 HZY" maxlength="20">
+      </div>
+    </div>
+    <button class="primary" id="go">生成并复制链接</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <footer>仅供课堂使用 · 更新于 2026-09-18</footer>
+</div>
+<div id="toast"></div>
+<script>
+function toast(t){ var el=document.getElementById('toast'); el.textContent=t; el.style.display='block';
+  clearTimeout(toast.h); toast.h=setTimeout(function(){ el.style.display='none'; }, 2000); }
+async function copy(url){
+  try{ await navigator.clipboard.writeText(url); }
+  catch(e){ var ta=document.createElement('textarea'); ta.value=url; document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); }catch(e2){} ta.remove(); }
+  toast('已复制链接');
+}
+document.getElementById('go').addEventListener('click', function(){
+  var y = document.getElementById('year').value;
+  var s = document.getElementById('stu').value.trim();
+  var url = new URL(y, location.href).href + (s ? ('?s=' + encodeURIComponent(s)) : '');
+  var box = document.getElementById('result');
+  box.className = 'result show';
+  box.innerHTML = '<a href="' + url + '" target="_blank" rel="noopener">' + url + '</a>';
+  copy(url);
+});
+</script>
+</body>
+</html>
